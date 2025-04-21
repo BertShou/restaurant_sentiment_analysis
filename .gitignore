@@ -1,0 +1,41 @@
+# python
+/out
+/data
+.ipynb_checkpoints
+restaurant_comment_data
+
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# Removing mac DS_store file
+.DS_Store
+
+# All files installed by Maven
+target/
+
+# Locally installed node
+node/
+
+# deployment
+deploy/*.log
+deploy/log*
+
+# IDEA specific files
+.idea
+*.iml
+
+# Terraform lock files
+*.terraform.lock.hcl
+deploy/parameters/.decrypted*password.yaml
+
+.terragrunt-cache
