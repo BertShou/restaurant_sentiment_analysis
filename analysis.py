@@ -336,4 +336,5 @@ def build_vocab(texts, min_freq=2):
     return vocab
 
 if __name__ == '__main__':
+    special_tokens = ['<PAD>', '<UNK>']
     main()
