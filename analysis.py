@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from tqdm import tqdm
 import os
-from plot_training_curves import plot_training_curves
+
 
 # 设置随机种子以确保结果可复现
 torch.manual_seed(42)
@@ -281,7 +281,7 @@ def main():
             torch.save(model.state_dict(), 'best_model.pth')
     
     # 绘制训练曲线和性能指标曲线
-    plot_training_curves(train_losses, val_losses, [m['f1'] for m in metrics_history])
+
     plot_metrics(metrics_history)
     
     # 加载最佳模型并在测试集上评估
