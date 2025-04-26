@@ -1,20 +1,18 @@
-import pandas as pd
-import numpy as np
-import torch
-import torch.nn as nn
-from torch.utils.data import Dataset, DataLoader
-import jieba
-from sklearn.metrics import accuracy_score, f1_score, classification_report, precision_score, recall_score, \
-    confusion_matrix
-from collections import Counter
-import warnings
-import matplotlib.pyplot as plt
-import seaborn as sns
-from tqdm import tqdm
 import os
 import random  # 添加 random 模块导入
+import warnings
+from collections import Counter
+
+import jieba
+import numpy as np
+import pandas as pd
+import torch
+import torch.nn as nn
 from plot_training_curves import plot_training_curves
-import sys
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, \
+    confusion_matrix
+from torch.utils.data import Dataset, DataLoader
+from tqdm import tqdm
 
 # 设置随机种子以确保结果可复现
 torch.manual_seed(42)
@@ -176,8 +174,8 @@ def evaluate(model, data_loader, criterion, device, metrics_history=None, curren
 
     # 生成当前epoch的热力图
     if current_epoch is not None:
-        from try5_output.plot_epoch_metrics import plot_aspect_metrics_comparison
-        os.makedirs('try5_output', exist_ok=True)  # 确保输出目录存在
+        from plot_epoch_metrics import plot_aspect_metrics_comparison
+        os.makedirs('analysis_output', exist_ok=True)  # 确保输出目录存在
         plot_aspect_metrics_comparison(
             metrics_by_class,
             str(current_epoch + 1)  # 修改为字符串格式
@@ -289,9 +287,9 @@ class EnhancedBiLSTMModel(nn.Module):
 
 def main():
     # 加载数据
-    train_df = pd.read_csv('餐饮评论数据/train.csv')
-    test_df = pd.read_csv('餐饮评论数据/test.csv')
-    dev_df = pd.read_csv('餐饮评论数据/dev.csv')
+    train_df = pd.read_csv('restaurant_comment_data/train.csv')
+    test_df = pd.read_csv('restaurant_comment_data/test.csv')
+    dev_df = pd.read_csv('restaurant_comment_data/dev.csv')
 
     # 设置设备（移到最前面）
     if torch.cuda.is_available():
@@ -309,6 +307,7 @@ def main():
         aug_texts = augment_text(row['review'])
         for aug_text in aug_texts:
             augmented_reviews.append(aug_text)
+            # TODO 这里要检查一下，情感表情有4个，不应该只是在0和1之间？
             # 确保标签值在[0,1]范围内
             labels = [max(0.0, min(1.0, float(row[aspect]))) for aspect in aspect_categories]
             augmented_labels.append(labels)
@@ -419,7 +418,7 @@ def main():
         torch.save(model.state_dict(), 'best_model.pth')
 
     # 绘制训练曲线和性能指标曲线
-    from try5_output.plot_epoch_metrics import plot_aspect_metrics_comparison, plot_loss_curves, plot_metrics_trends
+    from plot_epoch_metrics import plot_aspect_metrics_comparison, plot_loss_curves, plot_metrics_trends
 
     # 修改循环，只为有效的metrics生成热力图
     for epoch in range(len(metrics_history)):
@@ -427,7 +426,7 @@ def main():
             plot_aspect_metrics_comparison(metrics_history[epoch], epoch)
 
     # 确保输出目录存在
-    os.makedirs('try5_output', exist_ok=True)
+    os.makedirs('analysis_output', exist_ok=True)
 
     # 绘制损失曲线
     plot_loss_curves(train_losses, val_losses)

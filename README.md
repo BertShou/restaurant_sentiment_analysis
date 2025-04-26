@@ -53,7 +53,7 @@ pip install torch pandas numpy jieba scikit-learn matplotlib seaborn tqdm
 
 ### 2. 训练模型
 ```bash
-python try5.py
+python analysis.py
 ```
 
 ### 3. 模型输出
@@ -62,7 +62,7 @@ python try5.py
 - training_curves.png：展示训练过程中的损失变化
 
 ## 实验结果
-- 模型在测试集上的表现详见analysis_report_try5.md
+- 模型在测试集上的表现详见analysis_report_analysis.md
 - 可视化结果包括：
   - 训练曲线
   - 各项指标变化趋势
@@ -84,10 +84,10 @@ python try5.py
    - 重新设计评估方法，能够准确识别四种不同的情感状态
 
 ## 文件说明
-- try5.py：主程序文件
-- plot_training_curves.py：绘制训练曲线的工具函数
-- analysis_report_try5.md：详细的模型评估报告
-- README_try5.md：项目说明文档
+- [analysis.py](analysis.py)：主程序文件
+- plot_training_curves.py：绘制训练曲线的工具函数  
+- [analysis_report.md](analysis_report.md)：详细的模型评估报告
+- [README.md](README.md)：项目说明文档
 
 ## 注意事项
 1. 确保数据集文件位于正确的目录下

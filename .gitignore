@@ -2,7 +2,6 @@
 /out
 /data
 .ipynb_checkpoints
-restaurant_comment_data
 
 *.class
 
