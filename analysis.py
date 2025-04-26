@@ -358,7 +358,8 @@ def main():
                              pin_memory=True, num_workers=4)
 
     # 训练参数设置
-    num_epochs = 10  # 添加这行
+    # num_epochs = 10  # 训练次数
+    num_epochs = 1
     best_val_f1 = 0
     train_losses = []
     val_losses = []
@@ -407,11 +408,6 @@ def main():
         print(f'Train Loss: {train_loss:.4f}')
         print(f'Val Loss: {val_loss:.4f}')
         print(f'Learning Rate: {optimizer.param_groups[0]["lr"]:.6f}')
-
-    # 删除这个循环，因为已经在每个epoch中生成了热力图
-    # for epoch in range(len(metrics_history)):
-    #     if metrics_history[epoch]:
-    #         plot_aspect_metrics_comparison(metrics_history[epoch], epoch)
 
     if val_metrics['f1'] > best_val_f1:
         best_val_f1 = val_metrics['f1']

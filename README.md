@@ -85,7 +85,7 @@ python analysis.py
 
 ## 文件说明
 - [analysis.py](analysis.py)：主程序文件
-- plot_training_curves.py：绘制训练曲线的工具函数  
+- [plot_training_curves.py](plot_training_curves.py)：绘制训练曲线的工具函数  
 - [analysis_report.md](analysis_report.md)：详细的模型评估报告
 - [README.md](README.md)：项目说明文档
 

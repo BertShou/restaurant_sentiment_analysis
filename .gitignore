@@ -3,6 +3,11 @@
 /data
 .ipynb_checkpoints
 
+# 过滤分析后生成的最后模型
+best_model.pth
+# 过滤分析生成后的output
+/analysis_output
+
 *.class
 
 # Mobile Tools for Java (J2ME)
