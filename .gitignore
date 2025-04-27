@@ -2,7 +2,11 @@
 /out
 /data
 .ipynb_checkpoints
-restaurant_comment_data
+
+# 过滤分析后生成的最后模型
+best_model.pth
+# 过滤分析生成后的output
+/analysis_output
 
 *.class
 

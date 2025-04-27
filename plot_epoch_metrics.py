@@ -88,7 +88,7 @@ def plot_aspect_metrics_comparison(metrics_history, epoch_num):
     plt.tight_layout()
     
     # 确保输出目录存在
-    output_dir = 'try5_output'
+    output_dir = 'analysis_output'
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     
@@ -127,7 +127,7 @@ def plot_aspect_metrics_comparison(metrics_by_class, epoch_name):
     plt.tight_layout()
     
     # 保存图片
-    save_path = os.path.join('try5_output', f'aspect_metrics_comparison_{epoch_name}.png')
+    save_path = os.path.join('analysis_output', f'aspect_metrics_comparison_{epoch_name}.png')
     plt.savefig(save_path, dpi=300, bbox_inches='tight')
     plt.close()  # 关闭图形，释放内存
 
@@ -141,7 +141,7 @@ def plot_loss_curves(train_losses, val_losses):
     plt.ylabel('Loss')
     plt.legend()
     plt.grid(True)
-    plt.savefig('try5_output/loss_curves.png')
+    plt.savefig('analysis_output/loss_curves.png')
     plt.close()
 
 def plot_metrics_trends(metrics_history):
@@ -161,5 +161,5 @@ def plot_metrics_trends(metrics_history):
         plt.xlabel('Epoch')
         plt.ylabel(metric.capitalize())
         plt.grid(True)
-        plt.savefig(f'try5_output/{metric}_trend.png')
+        plt.savefig(f'analysis_output/{metric}_trend.png')
         plt.close()
