@@ -4,15 +4,23 @@
 本项目实现了一个基于BiLSTM和注意力机制的细粒度情感分析模型，用于分析餐饮评论中的多个方面（如位置、服务、价格、环境、食物等）的情感极性。模型能够识别四种不同的情感状态：正面(1)、中性(0)、负面(-1)和未提及(-2)，提供更加细粒度的情感分析结果。
 
 ## 环境要求
-- Python 3.6+
-- PyTorch
+确保您的环境中安装了以下库：
+
+- Python 3.8+
+- PyTorch (>= 1.8.0 推荐)
 - pandas
 - numpy
-- jieba
-- scikit-learn
-- matplotlib
-- seaborn
-- tqdm
+- jieba (用于中文分词)
+- scikit-learn (用于评估指标计算)
+- matplotlib (用于绘图)
+- seaborn (用于绘图)
+- tqdm (用于显示进度条)
+
+您可以使用 pip 来安装这些依赖：
+```bash
+pip install torch pandas numpy jieba scikit-learn matplotlib seaborn tqdm
+```
+*注意：请根据您的系统和CUDA版本安装合适的PyTorch版本。* 
 
 ## 数据集
 数据集包含餐饮评论及其对应的18个细粒度方面的情感标签：
@@ -33,64 +41,25 @@
 - dev.csv：验证集
 - test.csv：测试集
 
-## 模型架构
-- 词嵌入层：将文本转换为300维的向量表示
-- BiLSTM层：捕获文本的双向上下文信息
-- 注意力层：自适应加权重要特征
-- 全连接层：输出18个方面的情感极性预测
-- 标签映射：将模型输出映射到四种情感状态
-  - 0.0 → -2（未提及）
-  - 0.25 → -1（负面）
-  - 0.5 → 0（中性）
-  - 1.0 → 1（正面）
-
 ## 使用说明
 
-### 1. 环境配置
-```bash
-pip install torch pandas numpy jieba scikit-learn matplotlib seaborn tqdm
-```
-
-### 2. 训练模型
-```bash
-python analysis.py
-```
-
-### 3. 模型输出
-- best_model.pth：保存验证集上F1分数最高的模型
-- metrics_curves.png：展示各项评估指标的变化趋势
-- training_curves.png：展示训练过程中的损失变化
-
-## 实验结果
-- 模型在测试集上的表现详见analysis_report_analysis.md
-- 可视化结果包括：
-  - 训练曲线
-  - 各项指标变化趋势
-  - 每个方面的性能指标
-
-## 主要改进
-相比try4版本的改进：
-1. 添加了更详细的性能指标评估
-   - 准确率（ACC）
-   - 精确率（PPV）
-   - 召回率（TPR）
-   - 特异度（TNR）
-   - F1分数
-2. 优化了评估过程，添加了混淆矩阵分析
-3. 改进了可视化展示，提供更直观的性能分析
-4. 改进了标签处理方式：
-   - 将原始标签(-2, -1, 0, 1)映射到合适的连续值(0.0, 0.25, 0.5, 1.0)
-   - 使用MSELoss替代BCELoss，更适合多类别回归任务
-   - 重新设计评估方法，能够准确识别四种不同的情感状态
-
-## 文件说明
-- [analysis.py](analysis.py)：主程序文件
-- [plot_training_curves.py](plot_training_curves.py)：绘制训练曲线的工具函数  
-- [analysis_report.md](analysis_report.md)：详细的模型评估报告
-- [README.md](README.md)：项目说明文档
+1.  **配置环境**：按照“环境要求”部分安装所需库。
+2.  **运行分析**: 在项目根目录下执行以下命令：
+    ```bash
+    python analysis.py
+    ```
+3.  **查看输出**: 
+    *   训练过程日志（包括每个epoch的损失、指标、早停信息等）将打印到控制台。
+    *   最佳模型（基于验证集F1分数）将保存为 `analysis_output/best_model_on_f1.pth`。
+    *   评估指标的文本日志（每轮的详细指标、训练总结）将保存在 `analysis_output` 目录下。
+    *   性能可视化图表（损失/F1曲线、指标趋势图等）将保存在 `analysis_output` 目录下。
 
 ## 注意事项
-1. 确保数据集文件位于正确的目录下
-2. 训练过程中会自动保存最佳模型
-3. 可以通过调整超参数优化模型性能
-4. 标签映射是保持细粒度情感分析效果的关键部分
+- 建议使用支持 CUDA 的 GPU 进行训练以显著提高效率。脚本会自动检测并使用GPU（如果可用）。
+- 训练时间和所需资源取决于您的硬件配置和数据集大小。
+
+## 文件说明
+- [analysis.py](analysis.py)：模型程序文件
+- [plot_epoch_metrics.py](plot_epoch_metrics.py)：绘制训练曲线的工具函数
+- [Model_details.md](Model_details.md)：模型详解
+- [README.md](README.md)：项目运行说明文档
